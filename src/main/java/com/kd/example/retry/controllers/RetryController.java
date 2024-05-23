@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 /**
  * @author kuldeep
@@ -19,5 +20,20 @@ public class RetryController {
     @GetMapping("retry")
     public ResponseEntity<?> retryExample() {
         return ResponseEntity.ok(retryService.callExternalService());
+    }
+
+    @GetMapping("retry/recover")
+    public ResponseEntity<?> retryExampleRecover() {
+        return ResponseEntity.ok(retryService.callExternalServiceWithCallback());
+    }
+
+    @GetMapping("retry/webflux")
+    public Mono<String> retryExampleWithWebflux() {
+        return retryService.callExternalServiceWithWebFlux();
+    }
+
+    @GetMapping("retry/webflux/recover")
+    public Mono<String> retryExampleWithWebfluxRecover() {
+        return retryService.callExternalServiceWithWebFluxWthCallback();
     }
 }
